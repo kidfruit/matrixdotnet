@@ -6,12 +6,16 @@ using System.Text;
 
 namespace MatrixDotNet
 {
-    public class Vector : IEnumerable
+    public class Vector
     {
         private double[] values;
         public Vector(int length)
         {
             values = new double[length];
+            for (int i = 0; i < length; i++)
+            {
+                values[i] = 0;
+            }
         }
         public Vector(params double[] input)
         {
@@ -97,9 +101,5 @@ namespace MatrixDotNet
 
 
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

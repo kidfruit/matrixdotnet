@@ -10,7 +10,7 @@ Thumbs.db
 *_p.c
 *.ncb
 *.suo
-*.sln.docstates
+*.sln.docstates*
 *.tlb
 *.tlh
 *.bak
