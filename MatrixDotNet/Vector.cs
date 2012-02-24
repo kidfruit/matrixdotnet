@@ -6,7 +6,7 @@ using System.Text;
 
 namespace MatrixDotNet
 {
-    public class Vector:ICloneable
+    public class Vector : ICloneable
     {
         private double[] values;
         public Vector(int length)
@@ -60,7 +60,7 @@ namespace MatrixDotNet
             Vector result = new Vector(length);
             for (int i = startIndex; i < startIndex + length; i++)
             {
-                result[i-startIndex] = this[i];
+                result[i - startIndex] = this[i];
             }
             return result;
 
@@ -99,7 +99,7 @@ namespace MatrixDotNet
             }
         }
 
-        public static bool operator!=(Vector v1,Vector v2)
+        public static bool operator !=(Vector v1, Vector v2)
         {
             return !object.Equals(v1, v2);
         }
@@ -119,18 +119,18 @@ namespace MatrixDotNet
                 throw new Exception("Vector is not compatible");
             }
             else
-            { 
-                if( this.GetHashCode() != v.GetHashCode())
+            {
+                if (this.GetHashCode() != v.GetHashCode())
                     return false;
-                for (int i = 0; i < v.Count;i++ )
+                for (int i = 0; i < v.Count; i++)
                 {
-                    if (this[i]!=v[i])
+                    if (this[i] != v[i])
                     {
                         return false;
                     }
                 }
                 return true;
-               
+
             }
         }
         public override int GetHashCode()
@@ -146,6 +146,100 @@ namespace MatrixDotNet
         public object Clone()
         {
             return new Vector(this.values);
+        }
+
+        public int GetMaxValueIndex()
+        {
+            int index = 0;
+            double maxValue = double.MinValue;
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] > maxValue)
+                {
+                    maxValue = values[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+        public int GetMinValueIndex()
+        {
+            int index = 0;
+            double minValue = double.MaxValue;
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] < minValue)
+                {
+                    minValue = values[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+        public int GetPositiveMinValueIndex()
+        {
+            int index = 0;
+            double minValue = double.MaxValue;
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] > 0 && values[i] < minValue)
+                {
+                    minValue = values[i];
+                    index = i;
+                }
+            }
+            return index;
+        }
+        public bool IsAllNoLessThanTarget(double target)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] < target) return false;
+            }
+            return true;
+        }
+        public bool IsAllNoGreatThanTarget(double target)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] > target) return false;
+            }
+            return true;
+        }
+        public bool Contains(double target)
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if (values[i] == target)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        public bool IsAllInteger()
+        {
+            for (int i = 0; i < Count; i++)
+            {
+                if ((int)values[i] != values[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override string ToString()
+        {
+            string result = "";
+            result += "Type: Vector, Length: " + Count + "\nData:\n";
+            foreach (double x in values)
+            {
+                result += (x + " ");
+            }
+            result += "\n";
+            return result;
+
         }
     }
 }

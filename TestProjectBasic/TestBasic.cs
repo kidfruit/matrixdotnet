@@ -77,9 +77,21 @@ namespace TestProjectBasic
             Assert.IsTrue(v3.Equals(v4));
             Assert.IsTrue(v3 == v4);
             Assert.IsTrue(v1 + v2 == v3);
-            v1.ResetVector(new double[] { 1, 3, 5});
+            v1.ResetVector(new double[] { 1, 3, 5 });
             Assert.AreEqual(v1, v3);
             Assert.AreEqual(v1.SubVector(1, 2), new Vector(new double[] { 3, 5 }));
+            Assert.AreEqual(v1.GetMaxValueIndex(), 2);
+            Assert.AreEqual(v1.GetMinValueIndex(), 0);
+            v1.ResetVector(new double[] { -1, 1, 3 });
+            Assert.AreEqual(v1.GetPositiveMinValueIndex(), 1);
+            Assert.IsTrue(v1.IsAllNoLessThanTarget(-1));
+            Assert.IsFalse(v1.IsAllNoLessThanTarget(-0.5));
+            Assert.IsTrue(v1.IsAllNoGreatThanTarget(3));
+            Assert.IsFalse(v1.IsAllNoGreatThanTarget(2.5));
+            Assert.IsTrue(v1.Contains(1));
+            Assert.IsTrue(v1.IsAllInteger());
+            Assert.IsFalse(new Vector(new double[] { 0.5, 0.3, 1 }).IsAllInteger());
+            string output = v1.ToString();
 
         }
     }
