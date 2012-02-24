@@ -1,44 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using System.Linq;
 using System.Text;
 
 namespace MatrixDotNet
 {
-    public class Vector:List<double>
+    public class Vector : IEnumerable
     {
-        public Vector():base(){}
-        public Vector(params double[] vals):base()
+        private double[] values;
+        public Vector(int length)
         {
-            base.AddRange(vals);
+            values = new double[length];
         }
-        public void ResetValue(params double[] vals)
+        public Vector(params double[] input)
         {
-            base.Clear();
-            base.AddRange(vals);
+            values = new double[input.Length];
+            for (int i = 0; i < input.Length; i++)
+            {
+                values[i] = input[i];
+            }
+
         }
 
-        public Vector SubVector(int beginIndex, int endIndex)
+        public double this[int index]
         {
-            double[] temp = new double[endIndex - beginIndex + 1];
-            base.GetRange(beginIndex, endIndex - beginIndex + 1).CopyTo(temp);
-            return new Vector(temp);
+            get
+            {
+                return values[index];
+            }
+            set
+            {
+                values[index] = value;
+            }
         }
 
-        public static Vector operator+(Vector v1,Vector v2)
+        public int Count
         {
-            if (v1.Count!=v2.Count)
+            get
+            {
+                return values.Length;
+            }
+        }
+        public void ResetVector(params double[] input)
+        {
+            values = new double[input.Length];
+            for (int i = 0; i < input.Length; i++)
+            {
+                values[i] = input[i];
+            }
+        }
+
+        public Vector SubVector(int startIndex, int length)
+        {
+            Vector result = new Vector(length);
+            for (int i = startIndex; i < startIndex + length; i++)
+            {
+                result[i] = this[i];
+            }
+            return result;
+
+        }
+
+        public static Vector operator +(Vector v1, Vector v2)
+        {
+            if (v1.Count != v2.Count)
             {
                 throw new Exception("Vector is not compatible");
             }
             else
             {
-                double[] results = new double[v1.Count];
+                Vector result = new Vector(v1.Count);
                 for (int i = 0; i < v2.Count; i++)
                 {
-                    results[i] = v1[i] + v2[i];
+                    result[i] = v1[i] + v2[i];
                 }
-                return new Vector(results);
+                return result;
             }
         }
         public static Vector operator -(Vector v1, Vector v2)
@@ -49,13 +86,20 @@ namespace MatrixDotNet
             }
             else
             {
-                double[] results = new double[v1.Count];
+                Vector result = new Vector(v1.Count);
                 for (int i = 0; i < v2.Count; i++)
                 {
-                    results[i] = v1[i] - v2[i];
+                    result[i] = v1[i] - v2[i];
                 }
-                return new Vector(results);
+                return result;
             }
+        }
+
+
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 }
