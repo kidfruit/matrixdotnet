@@ -92,7 +92,10 @@ namespace TestProjectBasic
             Assert.IsTrue(v1.IsAllInteger());
             Assert.IsFalse(new Vector(new double[] { 0.5, 0.3, 1 }).IsAllInteger());
             string output = v1.ToString();
-
+            v1.Resize(2);
+            Assert.AreEqual(v1, new Vector(new double[] { -1, 1 }));
+            v1.Resize(3);
+            Assert.AreEqual(v1, new Vector(new double[] { -1, 1, 0 }));
         }
     }
 }

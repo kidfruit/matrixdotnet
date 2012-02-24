@@ -241,5 +241,31 @@ namespace MatrixDotNet
             return result;
 
         }
+
+        public void Resize(int length)
+        {
+                        if (length<Count)
+            {
+                double[] result = new double[length];
+                for (int i = 0; i < length;i++ )
+                {
+                    result[i] = values[i];
+                }
+                values = result;
+            }
+            else if (length>Count)
+            {
+                double[] result = new double[length];
+                for (int i = 0; i < Count; i++)
+                {
+                    result[i] = values[i];
+                }
+                for (int i = Count; i < length;i++ )
+                {
+                    result[i] = 0;
+                }
+                values = result;
+            }
+        }
     }
 }
