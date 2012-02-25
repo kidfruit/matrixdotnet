@@ -49,11 +49,55 @@ namespace MatrixDotNet
             }
             values = result;
         }
-        //public void AddRowToRow(int src, int dest, double val);
-        //public void MultiplyValueToRow(int dest, double val);
-        //public void AddRowToEnd(Vector newRow);
-        //public void DelRowFromEnd();
-        //public Matrix SubMatrix(int x, int y, int w, int h);
+
+        public void AddRowToRow(int src, int dest, double factor)
+        {
+            for (int j = 0; j < Column; j++)
+            {
+                values[dest, j] += values[src, j] * factor;
+            }
+        }
+
+        public void MultiplyFactorToRow(int dest, double factor)
+        {
+            for (int j = 0; j < Column; j++)
+            {
+                values[dest, j] *= factor;
+            }
+        }
+
+        public void AddNewRowToEnd(Vector newRow)
+        {
+            if (newRow.Count != Column)
+            {
+                throw new Exception("Matrix is not compatible");
+            }
+
+            this.Resize(Row + 1, Column);
+
+            for (int j = 0; j < Column; j++)
+            {
+                values[Row - 1, j] = newRow[j];
+            }
+        }
+
+        public void DelRowFromEnd()
+        {
+            this.Resize(Row - 1, Column);
+        }
+        
+        public Matrix SubMatrix(int row, int column, int height, int weight)
+        {
+            Matrix result = new Matrix(height, weight);
+            for (int i = 0; i < height; i++)
+            {
+                for (int j = 0; j < weight; j++)
+                {
+                    result[i, j] = values[row + i, column + j];
+                }
+            }
+            return result;
+        }
 
         public double this[int row, int column]
         {
