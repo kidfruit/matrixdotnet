@@ -192,41 +192,19 @@ namespace MatrixDotNet
         }
         public bool IsAllNoLessThanTarget(double target)
         {
-            for (int i = 0; i < Count; i++)
-            {
-                if (values[i] < target) return false;
-            }
-            return true;
+            return values.All(x => x >= target);
         }
         public bool IsAllNoGreatThanTarget(double target)
         {
-            for (int i = 0; i < Count; i++)
-            {
-                if (values[i] > target) return false;
-            }
-            return true;
+            return values.All(x => x <= target);
         }
         public bool Contains(double target)
         {
-            for (int i = 0; i < Count; i++)
-            {
-                if (values[i] == target)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return values.Contains(target);
         }
         public bool IsAllInteger()
         {
-            for (int i = 0; i < Count; i++)
-            {
-                if ((int)values[i] != values[i])
-                {
-                    return false;
-                }
-            }
-            return true;
+            return values.All(x => (int)x == x);
         }
 
         public override string ToString()
@@ -239,32 +217,17 @@ namespace MatrixDotNet
             }
             result += "\n";
             return result;
-
         }
 
         public void Resize(int length)
         {
-                        if (length<Count)
+            if (length < Count)
             {
-                double[] result = new double[length];
-                for (int i = 0; i < length;i++ )
-                {
-                    result[i] = values[i];
-                }
-                values = result;
+                values = values.Take(length).ToArray();
             }
-            else if (length>Count)
+            else if (length > Count)
             {
-                double[] result = new double[length];
-                for (int i = 0; i < Count; i++)
-                {
-                    result[i] = values[i];
-                }
-                for (int i = Count; i < length;i++ )
-                {
-                    result[i] = 0;
-                }
-                values = result;
+                values = values.Concat<double>(new double[length - Count]).ToArray();
             }
         }
     }

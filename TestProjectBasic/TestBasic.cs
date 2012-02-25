@@ -94,8 +94,8 @@ namespace TestProjectBasic
             string output = v1.ToString();
             v1.Resize(2);
             Assert.AreEqual(v1, new Vector(new double[] { -1, 1 }));
-            v1.Resize(3);
-            Assert.AreEqual(v1, new Vector(new double[] { -1, 1, 0 }));
+            v1.Resize(4);
+            Assert.AreEqual(v1, new Vector(new double[] { -1, 1, 0, 0 }));
         }
     }
 }
