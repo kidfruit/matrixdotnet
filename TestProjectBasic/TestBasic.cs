@@ -105,13 +105,28 @@ namespace TestProjectBasic
             Matrix matrix1 = new Matrix(2, 3);
             Assert.AreEqual(matrix1.Row, 2);
             Assert.AreEqual(matrix1.Column, 3);
-            Matrix matrix2 = new Matrix(new double[,]{{1,2,0},{3,4,5}});
+            Matrix matrix2 = new Matrix(new double[,] { { 1, 2, 0 }, { 3, 4, 5 } });
             Assert.AreEqual(matrix2.Row, 2);
             Assert.AreEqual(matrix2.Column, 3);
             matrix2.Resize(2, 2);
             Matrix matrix3 = new Matrix(new double[,] { { 1, 2 }, { 3, 4 } });
             Assert.AreEqual(matrix2.GetHashCode(), matrix3.GetHashCode());
             Assert.IsTrue(matrix2.Equals(matrix3));
+            matrix3.AddRowToRow(0, 1, -1);
+            Assert.AreEqual(matrix3, new Matrix(new double[,] { { 1, 2 }, { 2, 2 } }));
+            matrix3.AddRowToRow(1, 0, 1);
+            Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 2, 2 } }));
+            matrix3.MultiplyFactorToRow(1, 0.5);
+            Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 1, 1 } }));
+            matrix3.AddNewRowToEnd(new Vector(new double[] { 5, 6 }));
+            Assert.AreEqual(matrix3[2, 0], 5);
+            Assert.AreEqual(matrix3[2, 1], 6);
+            Matrix matrix4 = matrix3.SubMatrix(1, 1, 2, 1);
+            Assert.AreEqual(matrix4, new Matrix(new double[,] { { 1 }, { 6 } }));
+            Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 1, 1 }, { 5, 6 } }));
+            matrix3.DelRowFromEnd();
+            Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 1, 1 } }));
+
         }
     }
 }
