@@ -126,7 +126,12 @@ namespace TestProjectBasic
             Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 1, 1 }, { 5, 6 } }));
             matrix3.DelRowFromEnd();
             Assert.AreEqual(matrix3, new Matrix(new double[,] { { 3, 4 }, { 1, 1 } }));
-
+            Matrix matrix5 = new Matrix(new double[,] { { 1, 2 }, { 1, 2 } });
+            Assert.AreEqual(matrix3 + matrix5, new Matrix(new double[,] { { 4, 6 }, { 2, 3 } }));
+            Assert.AreEqual(matrix3 - matrix5, new Matrix(new double[,] { { 2, 2 }, { 0, -1 } }));
+            Assert.AreEqual(matrix3 * matrix5, new Matrix(new double[,] { { 7, 14 }, { 2, 4 } }));
+            Assert.AreEqual(matrix5 * matrix3, new Matrix(new double[,] { { 5, 6 }, { 5, 6 } }));
+            Assert.AreEqual(matrix3 * matrix4, new Matrix(new double[,] { { 27 }, { 7 } }));
         }
     }
 }

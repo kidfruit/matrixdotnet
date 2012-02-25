@@ -85,7 +85,7 @@ namespace MatrixDotNet
         {
             this.Resize(Row - 1, Column);
         }
-        
+
         public Matrix SubMatrix(int row, int column, int height, int weight)
         {
             Matrix result = new Matrix(height, weight);
@@ -130,7 +130,7 @@ namespace MatrixDotNet
             }
             if (Row != m.Row || Column != m.Column)
             {
-                throw new Exception("Vector is not compatible");
+                throw new Exception("Matrix is not compatible");
             }
             for (int i = 0; i < Row; i++)
             {
@@ -159,5 +159,62 @@ namespace MatrixDotNet
         {
             return !Object.Equals(m1, m2);
         }
+
+        public static Matrix operator +(Matrix m1, Matrix m2)
+        {
+            if (m1.Row != m2.Row || m1.Column != m2.Column)
+            {
+                throw new Exception("Matrix is not compatible");
+            }
+            Matrix result = new Matrix(m1.Row, m1.Column);
+            for (int i = 0; i < m1.Row; i++)
+            {
+                for (int j = 0; j < m1.Column; j++)
+                {
+                    result[i, j] = m1[i, j] + m2[i, j];
+                }
+
+            }
+            return result;
+        }
+        public static Matrix operator *(Matrix m1, double factor)
+        {
+            Matrix result = new Matrix(m1.Row, m1.Column);
+            for (int i = 0; i < m1.Row; i++)
+            {
+                for (int j = 0; j < m1.Column; j++)
+                {
+                    result[i, j] = m1[i, j] * factor;
+                }
+
+            }
+            return result;
+        }
+        public static Matrix operator -(Matrix m1, Matrix m2)
+        {
+            Matrix result = new Matrix(m1.Row, m1.Column);
+            result = m1 + (m2 * (-1));
+            return result;
+        }
+        public static Matrix operator *(Matrix m1, Matrix m2)
+        {
+            if (m1.Column != m2.Row)
+            {
+                throw new Exception("Matrix is not compatible");
+            }
+            Matrix result = new Matrix(m1.Row, m2.Column);
+            for (int i = 0; i < m1.Row; i++)
+            {
+                for (int j = 0; j < m2.Column; j++)
+                {
+                    for (int k = 0; k < m2.Row; k++)
+                    {
+                        result[i, j] += m1[i, k] * m2[k, j];
+                    }
+                }
+            }
+            return result;
+        }
+
     }
 }
