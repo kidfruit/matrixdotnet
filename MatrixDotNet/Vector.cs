@@ -101,11 +101,11 @@ namespace MatrixDotNet
 
         public static bool operator !=(Vector v1, Vector v2)
         {
-            return !object.Equals(v1, v2);
+            return !Object.Equals(v1, v2);
         }
         public static bool operator ==(Vector v1, Vector v2)
         {
-            return object.Equals(v1, v2);
+            return Object.Equals(v1, v2);
         }
         public override bool Equals(object o)
         {
@@ -118,20 +118,8 @@ namespace MatrixDotNet
             {
                 throw new Exception("Vector is not compatible");
             }
-            else
-            {
-                if (this.GetHashCode() != v.GetHashCode())
-                    return false;
-                for (int i = 0; i < v.Count; i++)
-                {
-                    if (this[i] != v[i])
-                    {
-                        return false;
-                    }
-                }
-                return true;
 
-            }
+            return values.SequenceEqual(v.values);
         }
         public override int GetHashCode()
         {
