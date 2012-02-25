@@ -76,6 +76,7 @@ namespace TestProjectBasic
             Assert.AreEqual(v4.GetHashCode(), v3.GetHashCode());
             Assert.IsTrue(v3.Equals(v4));
             Assert.IsTrue(v3 == v4);
+            Assert.IsFalse(v1.Equals(v3));
             Assert.IsTrue(v1 + v2 == v3);
             v1.ResetVector(new double[] { 1, 3, 5 });
             Assert.AreEqual(v1, v3);
@@ -96,6 +97,21 @@ namespace TestProjectBasic
             Assert.AreEqual(v1, new Vector(new double[] { -1, 1 }));
             v1.Resize(4);
             Assert.AreEqual(v1, new Vector(new double[] { -1, 1, 0, 0 }));
+        }
+
+        [TestMethod]
+        public void TestMethodMatrix()
+        {
+            Matrix matrix1 = new Matrix(2, 3);
+            Assert.AreEqual(matrix1.Row, 2);
+            Assert.AreEqual(matrix1.Column, 3);
+            Matrix matrix2 = new Matrix(new double[,]{{1,2,0},{3,4,5}});
+            Assert.AreEqual(matrix2.Row, 2);
+            Assert.AreEqual(matrix2.Column, 3);
+            matrix2.Resize(2, 2);
+            Matrix matrix3 = new Matrix(new double[,] { { 1, 2 }, { 3, 4 } });
+            Assert.AreEqual(matrix2.GetHashCode(), matrix3.GetHashCode());
+            Assert.IsTrue(matrix2.Equals(matrix3));
         }
     }
 }
